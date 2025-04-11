@@ -1,0 +1,11 @@
+package com.rcd.rcdapi.api.dto.challengelog;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class ChallengeLogMemoUpdReqDTO {
+    private Long challengeLogId;
+    private String memo;
+}
