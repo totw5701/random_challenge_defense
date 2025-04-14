@@ -38,10 +38,12 @@ public class ChallengeLogService {
     public void createChallengeLog(Long challengeCardId) throws Exception {
         Long memberId = SecurityUtil.getLoginMemberId();
 
-        long ongoingCartCnt = challengeLogRepository.countByStatusAndMember_Id(ChallengeLogStatus.READY.getStatus(), memberId);
+        long ongoingCartCnt = challengeLogRepository.countByStatusAndMember_Id(ChallengeLogStatus.READY, memberId);
         if(ongoingCartCnt >= 5) { //Todo: 옵션으로 뺄 것.
             throw new CustomException(ExceptionCode.SERVICE_USAGE_LIMIT_EXCEEDED);
         }
+
+        //Todo: 이미 도전중인 챌린지인지 확인
 
         ChallengeCard challengeCard = challengeCardRepository.findById(challengeCardId)
                 .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_CHALLENGE_CARD));
@@ -111,7 +113,7 @@ public class ChallengeLogService {
     @Transactional(readOnly = true)
     public List<ChallengeLogDetailDTO> getOngoingChallengeLog() {
         Long memberId = SecurityUtil.getLoginMemberId();
-        return challengeLogRepository.findAllByStatusAndMember_Id(ChallengeLogStatus.READY.getStatus(), memberId)
+        return challengeLogRepository.findAllByStatusAndMember_Id(ChallengeLogStatus.READY, memberId)
                 .stream().map(ChallengeLog::toDetailDto).collect(Collectors.toList());
     }
 

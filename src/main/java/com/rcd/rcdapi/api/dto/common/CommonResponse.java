@@ -21,7 +21,7 @@ public class CommonResponse<T> {
     public static <T> CommonResponse<T> success(T data) {
         return CommonResponse.<T>builder()
                 .isSuccess(true)
-                .code("200")
+                .code("0000")
                 .msg("요청에 성공했습니다.")
                 .data(data)
                 .build();
@@ -31,7 +31,7 @@ public class CommonResponse<T> {
     public static <T> CommonResponse<T> success() {
         return CommonResponse.<T>builder()
                 .isSuccess(true)
-                .code("200")
+                .code("0000")
                 .msg("정상 처리되었습니다.")
                 .build();
     }

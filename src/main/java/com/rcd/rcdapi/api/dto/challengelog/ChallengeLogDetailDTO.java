@@ -1,17 +1,13 @@
 package com.rcd.rcdapi.api.dto.challengelog;
 
-import com.rcd.rcdapi.domain.challengecard.ChallengeCard;
-import com.rcd.rcdapi.domain.challengelog.ChallengeLogStatus;
-import com.rcd.rcdapi.domain.member.Member;
+import com.rcd.rcdapi.api.dto.challengecard.ChallengeCardDetailDTO;
+import com.rcd.rcdapi.api.dto.tag.TagDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,8 +16,9 @@ import javax.persistence.ManyToOne;
 public class ChallengeLogDetailDTO {
     private Long id;
 
-    private Long challengeCardId;
     private Long memberId;
+    private ChallengeCardDetailDTO challengeCard;
+    private List<TagDetailDTO> tags;
 
     private String status;
     private String memo;

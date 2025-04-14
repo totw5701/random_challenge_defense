@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ChallengeLogRepository extends JpaRepository<ChallengeLog, Long> {
 
-    long countByStatusAndMember_Id(String status, Long memberId);
+    long countByStatusAndMember_Id(ChallengeLogStatus status, Long memberId);
 
-    List<ChallengeLog> findAllByStatusAndMember_Id(String status, Long memberId);
+    List<ChallengeLog> findAllByStatusAndMember_Id(ChallengeLogStatus status, Long memberId);
 
     Page<ChallengeLog> findAllByMember_Id(Long memberId, Pageable pageable);
 }

@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -41,13 +42,13 @@ public class ChallengeLog {
     private String startDtm;
     private String endDtm;
 
-
     // detailDto 변환 메서드
     public ChallengeLogDetailDTO toDetailDto() {
         return ChallengeLogDetailDTO.builder()
                 .id(this.id)
-                .challengeCardId(this.challengeCard.getId())
+                .challengeCard(this.challengeCard.toDetailDto())
                 .memberId(this.member.getId())
+                .tags(this.challengeCard.getTags().stream().map(t -> t.getTag().toDetailDto()).collect(Collectors.toList()))
                 .status(this.status.getStatus())
                 .memo(this.memo)
                 .startDtm(this.startDtm)
