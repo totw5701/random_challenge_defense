@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -16,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
@@ -49,7 +51,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             request.setAttribute("token-exception", tokenException);
         }*/
 
-        Authentication token = new UsernamePasswordAuthenticationToken(1L, "");
+        Authentication token = new UsernamePasswordAuthenticationToken(
+                1L, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
         SecurityContextHolder.getContext().setAuthentication(token);
 
         chain.doFilter(request, response);

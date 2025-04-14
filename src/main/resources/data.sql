@@ -15,11 +15,14 @@ INSERT INTO CHALLENGE_CARD (id, title, description, create_dtm) values (9, '20�
 INSERT INTO CHALLENGE_CARD (id, title, description, create_dtm) values (10, '20분간 러닝하기', '20분간 러닝을 해보세요. 알겠죠? 20분간 러닝을 해보세요!', '20250407000000');
 
 -- 태그
-INSERT INTO TAG (id, name) VALUES (1, '운동');
-INSERT INTO TAG (id, name) VALUES (2, '마음챙김');
-INSERT INTO TAG (id, name) VALUES (3, '자기개발');
-INSERT INTO TAG (id, name) VALUES (4, '뭐뭐뭐뭐');
-INSERT INTO TAG (id, name) VALUES (5, '고구마');
+INSERT INTO TAG (id, name) VALUES (1, 'level1');
+INSERT INTO TAG (id, name) VALUES (2, 'level2');
+INSERT INTO TAG (id, name) VALUES (3, 'level3');
+INSERT INTO TAG (id, name) VALUES (4, 'level4');
+INSERT INTO TAG (id, name) VALUES (5, 'level5');
+INSERT INTO TAG (id, name) VALUES (11, '마음챙김');
+INSERT INTO TAG (id, name) VALUES (12, '운동');
+INSERT INTO TAG (id, name) VALUES (13, '괴짜');
 
 -- 챌린지 카드 태그 연결
 INSERT INTO CHALLENGE_CARD_TAG(id, challenge_card_id, tag_id) VALUES (1, 1, 1);

@@ -77,6 +77,9 @@ public class ChallengeLogService {
     public void skipChallenge(Long challengeLogId) throws Exception {
         Long memberId = SecurityUtil.getLoginMemberId();
         ChallengeLog log = getOwnedLog(memberId, challengeLogId);
+        if(log.getStatus() == ChallengeLogStatus.END) {
+            throw new CustomException(ExceptionCode.INVALID_REQUEST);
+        }
         log.skip();
     }
 

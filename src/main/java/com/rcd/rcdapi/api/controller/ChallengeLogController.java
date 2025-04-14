@@ -8,6 +8,7 @@ import com.rcd.rcdapi.api.dto.common.CommonResponse;
 import com.rcd.rcdapi.api.dto.common.PagingDTO;
 import com.rcd.rcdapi.api.cservice.ChallengeLogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +30,13 @@ public class ChallengeLogController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/on-going")
+    @GetMapping("/on-going")
     public CommonResponse onGoing() {
         List<ChallengeLogDetailDTO> data = challengeLogService.getOngoingChallengeLog();
         return CommonResponse.success(data);
     }
 
-    @PostMapping("/history/{currentPage}")
+    @GetMapping("/history/{currentPage}")
     public CommonResponse history(@PathVariable(name = "currentPage") String currentPage) {
         PagingDTO<ChallengeLogDetailDTO> data = challengeLogService.getChallengeLogHistory(Integer.parseInt(currentPage));
         return CommonResponse.success(data);

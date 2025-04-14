@@ -1,5 +1,6 @@
 package com.rcd.rcdapi.domain.tag;
 
+import com.rcd.rcdapi.api.dto.tag.TagDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +23,11 @@ public class Tag {
     private Long id;
 
     private String name;
+
+    public TagDetailDTO toDetailDto() {
+        return TagDetailDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
+    }
 }
