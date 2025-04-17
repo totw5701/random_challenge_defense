@@ -1,5 +1,6 @@
 package com.rcd.rcdapi.api.controller;
 
+import com.rcd.rcdapi.api.dto.challengecard.ChallengeCardPkDTO;
 import com.rcd.rcdapi.api.dto.challengelog.ChallengeLogDetailDTO;
 import com.rcd.rcdapi.api.dto.challengelog.ChallengeLogPkDTO;
 import com.rcd.rcdapi.api.dto.challengelog.ChallengeLogMemoUpdReqDTO;
@@ -25,7 +26,7 @@ public class ChallengeLogController {
     private final ChallengeLogService challengeLogService;
 
     @PostMapping("/do")
-    public CommonResponse doChallenge(@RequestBody ChallengeLogPkDTO form) throws Exception {
+    public CommonResponse doChallenge(@RequestBody ChallengeCardPkDTO form) throws Exception {
         challengeLogService.createChallengeLog(form.getChallengeCardId());
         return CommonResponse.success();
     }
@@ -50,7 +51,7 @@ public class ChallengeLogController {
 
     @PostMapping("/skip")
     public CommonResponse skip(@RequestBody ChallengeLogPkDTO form) throws Exception {
-        challengeLogService.skipChallenge(form.getChallengeCardId());
+        challengeLogService.skipChallenge(form.getChallengeLogId());
         return CommonResponse.success();
     }
 

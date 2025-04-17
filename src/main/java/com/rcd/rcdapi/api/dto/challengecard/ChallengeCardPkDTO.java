@@ -1,4 +1,4 @@
-package com.rcd.rcdapi.api.dto.challengelog;
+package com.rcd.rcdapi.api.dto.challengecard;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChallengeLogPkDTO {
-    private Long challengeLogId;
+public class ChallengeCardPkDTO {
+    private Long challengeCardId;
 }

@@ -89,11 +89,11 @@ public class ChallengeLogService {
      * 챌린지 이력을 페이징 하여 받아온다.
      */
     @Transactional(readOnly = true)
-    public PagingDTO<ChallengeLogDetailDTO> getChallengeLogHistory(Integer nowPage) {
+    public PagingDTO<ChallengeLogDetailDTO> getChallengeLogHistory(Integer currentPage) {
         Long memberId = SecurityUtil.getLoginMemberId();
 
-        Pageable pageable = PageRequest.of(nowPage, 15, Sort.by("endDtm").descending()); //Todo: 출력 수 옵션으로 뺄 것.
-        Page<ChallengeLog> page = challengeLogRepository.findAllByMember_Id(memberId, pageable);
+        Pageable pageable = PageRequest.of(currentPage, 15, Sort.by("endDtm").descending()); //Todo: 출력 수 옵션으로 뺄 것.
+        Page<ChallengeLog> page = challengeLogRepository.findAllByStatusAndMember_Id(ChallengeLogStatus.END, memberId, pageable);
         List<ChallengeLogDetailDTO> contents = page.stream().map(ChallengeLog::toDetailDto).collect(Collectors.toList());
 
         return PagingDTO.<ChallengeLogDetailDTO>builder()
