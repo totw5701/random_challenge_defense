@@ -12,5 +12,6 @@ public interface ChallengeLogRepository extends JpaRepository<ChallengeLog, Long
 
     List<ChallengeLog> findAllByStatusAndMember_Id(ChallengeLogStatus status, Long memberId);
 
-    Page<ChallengeLog> findAllByMember_Id(Long memberId, Pageable pageable);
+    Page<ChallengeLog> findAllByStatusAndMember_Id(ChallengeLogStatus status, Long memberId, Pageable pageable);
+
 }
