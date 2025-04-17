@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -41,6 +42,7 @@ public class ChallengeCard {
                 .id(this.id)
                 .title(this.title)
                 .description(this.description)
+                .tags(this.tags.stream().map(ct -> ct.getTag().toDetailDto()).collect(Collectors.toList()))
                 .createDtm(this.createDtm)
                 .build();
     }
