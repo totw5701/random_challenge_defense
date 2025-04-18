@@ -36,7 +36,7 @@ public class JwtTokenProvider {
 
         long now = (new Date()).getTime();
         // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + 3600000);
+        Date accessTokenExpiresIn = new Date(now + 86400000);
         String accessToken = Jwts.builder()
                 //.setSubject((String) att.get("email"))
                 .claim("id", id)

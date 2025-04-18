@@ -18,7 +18,10 @@ import javax.persistence.Id;
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String socialId;
+    private String socialType;
     private String createdDtm;
 }

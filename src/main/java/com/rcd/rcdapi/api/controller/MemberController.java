@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -19,14 +19,6 @@ public class MemberController {
 
     @GetMapping("/kakao/callback")
     public CommonResponse<TokenInfo> kakaoCallback(@RequestParam("code") String code) {
-        // 인가 코드로 토큰 받기
-        String accessToken = memberService.getAccessToken(code);
-
-        // 사용자 정보 조회
-        MemberDetailDTO userInfo = memberService.getUserInfo(accessToken);
-
-        // 사용자 회원가입 or 로그인 처리 후 토큰 발급
-        TokenInfo tokenInfo = memberService.processUser(userInfo);
-        return CommonResponse.success(tokenInfo);
+        return CommonResponse.success(memberService.login(code));
     }
 }

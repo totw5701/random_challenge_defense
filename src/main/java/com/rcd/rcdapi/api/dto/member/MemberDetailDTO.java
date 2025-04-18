@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class MemberDetailDTO {
 
     private Long id;
+    private String socialId;
     private String createDtm;
 }

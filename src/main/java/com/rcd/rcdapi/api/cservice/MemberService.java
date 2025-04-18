@@ -43,9 +43,20 @@ public class MemberService {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    public String getAccessToken(String code) {
+    public TokenInfo login(String code) {
+        // 인가 코드로 토큰 받기
+        String accessToken = getAccessToken(code);
+
+        // 사용자 정보 조회
+        MemberDetailDTO userInfo = getUserInfo(accessToken);
+
+        // 사용자 회원가입 or 로그인 처리 후 토큰 발급
+        return processUser(userInfo);
+    }
+
+    private String getAccessToken(String code) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -61,7 +72,7 @@ public class MemberService {
         return (String) response.getBody().get("access_token");
     }
 
-    public MemberDetailDTO getUserInfo(String accessToken) {
+    private MemberDetailDTO getUserInfo(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
 
@@ -71,18 +82,24 @@ public class MemberService {
         Long id = (Long) response.getBody().get("id");
 
         return MemberDetailDTO.builder()
-                .id(id)
+                .socialId(String.valueOf(id))
                 .build();
     }
 
-    public TokenInfo processUser(MemberDetailDTO userInfo) {
-        Long memberId = userInfo.getId();
-        memberRepository.findById(memberId)
-                .orElseGet(() -> memberRepository.save(
-                        Member.builder().id(memberId).createdDtm(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))).build()
-                ));
-
+    private TokenInfo processUser(MemberDetailDTO userInfo) {
+        String socialId = userInfo.getSocialId();
+        Long memberId = upsertMember(socialId);
         return jwtTokenProvider.generateTokenWithId(memberId);
     }
 
+    private Long upsertMember(String socialId) {
+        return memberRepository.findBySocialId(socialId)
+                .orElseGet(() -> memberRepository.save(
+                        Member.builder()
+                                .socialId(socialId)
+                                .socialType("KAKAO")
+                                .createdDtm(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
+                                .build()
+                )).getId();
+    }
 }
